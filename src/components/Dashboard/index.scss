@@ -1,0 +1,67 @@
+@import "~taro-ui/dist/style/components/card.scss";
+
+.outer-frame {
+  position: fixed;
+  top: 10%;
+  padding-top: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box
+}
+
+.line {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cell {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 32px;
+  width: 32px;
+  margin-right: 20px;
+}
+
+.text {
+  width: 120px
+}
+
+.outer-tool-bar {
+  height: 6vh;
+  background-color: #ebebeb;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.outer-page {
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  overflow: auto;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 8px;
+}
