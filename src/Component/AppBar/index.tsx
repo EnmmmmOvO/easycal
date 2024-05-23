@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 
 const CustomerAppBar = () => {
@@ -16,9 +15,7 @@ const CustomerAppBar = () => {
             <Typography variant="h6" sx={{ color: 'black' }}>EasyCal</Typography>
           </Box>
 
-          <Box sx={{ ml: 5 }}>
-            <SettingsIcon sx={{ color: 'black' }}/>
-          </Box>
+          <Box sx={{ ml: 8 }}></Box>
         </Toolbar>
       </Container>
     </AppBar>

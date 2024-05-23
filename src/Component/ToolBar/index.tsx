@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import PageContext from '../../Context/pageContext';
 
 const ToolBar = () => {
-  const pages = ['Convert', 'Trading'];
+  const pages = ['Convert', 'Trading', 'Trading1'];
   const {page, setPage} = useContext(PageContext);
   return (
     <Box sx={{
