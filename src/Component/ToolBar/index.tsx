@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import PageContext from '../../Context/pageContext';
 
 const ToolBar = () => {
-  const pages = ['Convert', 'Trading', 'Trading1'];
+  const pages = ['Total', 'Amount'];
   const {page, setPage} = useContext(PageContext);
   return (
     <Box sx={{
@@ -22,7 +22,7 @@ const ToolBar = () => {
           key={p}
           sx={{
             display: 'flex',
-            width: '25%',
+            width: '33.3%',
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 11,

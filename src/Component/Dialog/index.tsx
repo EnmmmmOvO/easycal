@@ -17,7 +17,7 @@ export default function AlertDialog() {
   const { setMessage, setSnackOpen } = useContext(SnackbarContext);
 
   const handleClose = () => {
-    setMessage("Rates Locked");
+    setMessage("AUDCO 汇率锁定");
     setSnackOpen(true);
     setOpen(false);
   };

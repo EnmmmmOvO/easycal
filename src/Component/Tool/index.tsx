@@ -6,9 +6,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import { LockOpen } from '@mui/icons-material';
 import DialogContext from '../../Context/dialogContext';
 import SnackbarContext from '../../Context/snackbarContext';
+import { updateAudco_usdt } from '../../App';
 
 const Update = () => {
-  const { update, lock, setLock } = useContext(DataContext);
+  const { update, lock, setAudco_usdt, send, setLock } = useContext(DataContext);
   const { setOpen } = useContext(DialogContext);
 
   const { setSnackOpen, setMessage } = useContext(SnackbarContext);
@@ -16,24 +17,36 @@ const Update = () => {
 
   const handleClick = () => {
     update();
-    setMessage("Rates Synchronized");
-    setSnackOpen(true);
     setRotating(true);
     setTimeout(() => {
       setRotating(false);
-      setSnackOpen(false);
     }, 500);
 
   };
 
   const handleLockClick = () => {
     if (lock) {
+      setLock(false);
       setMessage("Rates UnLocked");
       setSnackOpen(true);
-      setLock(false);
+      updateAudco_usdt()
+        .then(audco_usdt => {
+          if (!audco_usdt.data.last) throw new Error('API Fetch Fail');
+          setAudco_usdt(Number(audco_usdt.data.last))
+          setMessage('AUDCO 汇率已同步');
+        })
+        .catch(() => {
+          setSnackOpen(false);
+          setMessage('汇率获取错误');
+          setSnackOpen(true);
+          if (!send.current) {
+            send.current = true;
+            fetch('https://api.day.app/VhjbYDxaWG7YSkmrccfNYZ/EasyCal/API Fetch Fail').catch();
+          }
+        });
     } else {
-      setOpen(true);
       setLock(true);
+      setOpen(true);
     }
   }
 

@@ -1,8 +1,9 @@
-import { createContext } from 'react';
+import { createContext, MutableRefObject } from 'react';
 
 interface DataProps {
   audco_usdt: number;
   lock: boolean;
+  send: MutableRefObject<boolean>;
   usdt_aud: number;
   bnb_usdt: number;
   setAudco_usdt: (a: number) => void;
@@ -13,6 +14,7 @@ interface DataProps {
 const DataContext = createContext<DataProps>({
   audco_usdt: 0,
   lock: false,
+  send: { current: false },
   usdt_aud: 0,
   bnb_usdt: 0,
   setAudco_usdt: () => {
