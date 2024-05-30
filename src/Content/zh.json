@@ -1,0 +1,14 @@
+{
+  "update": "汇率已更新",
+  "error": "汇率更新失败",
+  "lock": "AUDCO 汇率已锁定",
+  "unlock": "AUDCO 汇率已解锁",
+  "pool": "矿池收益",
+  "destroy": "销毁后收益",
+  "invest": "投资金额",
+  "m2e": "M2E 收益",
+  "total": "总收益",
+  "month": "月",
+  "day": "天",
+  "year": "年"
+}

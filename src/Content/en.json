@@ -1,0 +1,14 @@
+{
+  "update": "Rates updated",
+  "error": "Fetching rates failed",
+  "lock": "AUDCO Rates are locked",
+  "unlock": "AUDCO Rates are unlocked",
+  "pool": "Pool earnings",
+  "destroy": "After destroy",
+  "invest": "Amount Invested",
+  "m2e": "M2E earning",
+  "total": "Total earning",
+  "month": "Month",
+  "day": "Day",
+  "year": "Year"
+}

@@ -5,6 +5,7 @@ import Router, { Loader } from './router';
 import PageContext from './Context/pageContext';
 import DialogContext from './Context/dialogContext';
 import SnackbarContext from './Context/snackbarContext';
+import LangContext from './Context/langContext';
 
 const CustomerAppBar = Loader(lazy(() => import('./Component/AppBar')));
 const Update = Loader(lazy(() => import('./Component/Tool')));
@@ -47,6 +48,9 @@ const updateBnb = async () => {
   }
 
 const App = () => {
+  const [lang, setLang] = useState<string>('zh');
+  const [content, setContent] = useState<{ [key: string]: string }>({});
+
   const send = useRef(false);
   const [open, setOpen] = useState(false);
   const [lock, setLock] = useState(false);
@@ -66,8 +70,14 @@ const App = () => {
   }, [lock]);
 
   useEffect(() => {
+    import (`./Content/${lang}.json`)
+      .then(data => setContent(data.default))
+      .catch(_error => setLang('zh'));
+  }, [lang]);
+
+  useEffect(() => {
     update()
-    const intervalId = setInterval(() => update(), 15000);
+    const intervalId = setInterval(() => update(), 30000);
     return () => clearInterval(intervalId);
   // eslint-disable-next-line
   }, []);
@@ -81,11 +91,11 @@ const App = () => {
         if ((!lockRef.current && !audco_usdt.data.last) || !bnb_usdt.data.last || !usdt_aud.data.average_price) {
           throw new Error('API Fetch Fail');
         }
-        setMessage('汇率已同步');
+        setMessage(content.update);
         setSnackOpen(true);
       })
       .catch(() => {
-        setMessage('汇率获取错误');
+        setMessage(content.updateError);
         setSnackOpen(true);
         if (!send.current) {
           send.current = true;
@@ -97,17 +107,19 @@ const App = () => {
   return (
     <SnackbarContext.Provider value={{ message, setMessage, snackOpen, setSnackOpen }}>
       <DialogContext.Provider value={{ open, setOpen }}>
-        <PageContext.Provider value={{ page, setPage }}>
-          <DataContext.Provider value={{ audco_usdt, lock, send, usdt_aud, bnb_usdt, setLock, setAudco_usdt, update }}>
-            <CustomerAppBar />
-            <Background />
-            <Router />
-            <Update />
-            <CopyRight />
-            <Dialog />
-            <SnackBar />
-          </DataContext.Provider>
-        </PageContext.Provider>
+        <LangContext.Provider value={{ lang, setLang, content }}>
+          <PageContext.Provider value={{ page, setPage }}>
+            <DataContext.Provider value={{ audco_usdt, lock, send, usdt_aud, bnb_usdt, setLock, setAudco_usdt, update }}>
+              <CustomerAppBar />
+              <Background />
+              <Router />
+              <Update />
+              <CopyRight />
+              <Dialog />
+              <SnackBar />
+            </DataContext.Provider>
+          </PageContext.Provider>
+        </LangContext.Provider>
       </DialogContext.Provider>
     </SnackbarContext.Provider>
   );

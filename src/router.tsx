@@ -18,8 +18,9 @@ interface PageProps {
 const Dashboard = Loader(lazy(() => import('./Component/Dashboard')));
 const Trading = Loader(lazy(() => import('./Page/trading')));
 const Trading2 = Loader(lazy(() => import('./Page/trading2')));
+const M2E = Loader(lazy(() => import('./Page/m2e')));
 
-const pages: PageProps = {0: <Trading />, 1: <Trading2 />};
+const pages: PageProps = {0: <Trading />, 1: <Trading2 />, 2: <M2E />};
 
 const Router = () => {
   const { page } = useContext(PageContext);

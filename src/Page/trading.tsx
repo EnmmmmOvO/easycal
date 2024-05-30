@@ -7,7 +7,6 @@ import {
   MenuItem,
   Select, TextField
 } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
 import DataContext from '../Context/dataContext';
 
 const Trading = () => {
@@ -18,28 +17,9 @@ const Trading = () => {
   const [bnbAmount, setBnbAmount] = useState(0);
   const [audcoAmount, setAudcoAmount] = useState(0);
 
-  const totalRef = React.useRef<HTMLInputElement>(null);
-  const bnbRef = React.useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     setAudcoAmount(((type === '0' ? total / usdt_aud : total) - (bnb_usdt * bnbAmount)) / audco_usdt);
   }, [total, bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type]);
-
-  const handleTotalClick = () => {
-    const textarea = totalRef.current;
-    if (!textarea) return;
-    textarea.select();
-  }
-
-  const handleBnbClick = () => {
-    const textarea = bnbRef.current;
-    if (!textarea) return;
-    textarea.select();
-  }
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value);
-  };
 
   return (
     <Grid container spacing={2} sx={{ height: 100, mt: 0 }}>
@@ -58,7 +38,7 @@ const Trading = () => {
                 display: 'flex', direction: 'column', alignItems: 'center', borderRadius: 0
               },
             }}
-            onChange={handleChange}
+            onChange={(e) => setType(e.target.value)}
           >
             <MenuItem value='0' sx={{ display: 'flex', direction: 'column', alignItems: 'center' }}>
               <img
@@ -95,12 +75,9 @@ const Trading = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
           <TextField
             fullWidth
-            inputRef={totalRef}
             variant="outlined"
-            type="number"
             label="Total"
-            value={total}
-            onClick={handleTotalClick}
+            placeholder='0'
             onChange={(e) => setTotal(Number(e.target.value))}
             InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
@@ -111,12 +88,9 @@ const Trading = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
           <TextField
             fullWidth
-            inputRef={bnbRef}
             variant="outlined"
-            type="number"
             label="Number"
-            value={bnbAmount}
-            onClick={handleBnbClick}
+            placeholder="0"
             onChange={(e) => setBnbAmount(Number(e.target.value))}
             InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />

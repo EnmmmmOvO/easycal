@@ -8,7 +8,7 @@ const Dashboard: React.FC<any> = ({ children }) => {
   return (
     <Box sx={{
       position: 'fixed',
-      top: '12%',
+      top: '11%',
       pt: 2,
       pl: 2,
       pr: 2,

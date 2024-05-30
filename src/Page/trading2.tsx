@@ -7,7 +7,6 @@ import {
   MenuItem,
   Select, TextField
 } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
 import DataContext from '../Context/dataContext';
 
 const Trading = () => {
@@ -18,28 +17,9 @@ const Trading = () => {
   const [bnbAmount, setBnbAmount] = useState(0);
   const [audcoAmount, setAudcoAmount] = useState(0);
 
-  const totalRef = React.useRef<HTMLInputElement>(null);
-  const bnbRef = React.useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     setTotal((audcoAmount * audco_usdt + bnbAmount * bnb_usdt) * (type === '0' ? usdt_aud : 1));
   }, [bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type, audcoAmount]);
-
-  const handleTotalClick = () => {
-    const textarea = totalRef.current;
-    if (!textarea) return;
-    textarea.select();
-  }
-
-  const handleBnbClick = () => {
-    const textarea = bnbRef.current;
-    if (!textarea) return;
-    textarea.select();
-  }
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value);
-  };
 
   return (
     <Grid container spacing={2} sx={{ height: 100, mt: 0 }}>
@@ -69,12 +49,9 @@ const Trading = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
           <TextField
             fullWidth
-            inputRef={totalRef}
             variant="outlined"
-            type="number"
             label="Number"
-            value={audcoAmount}
-            onClick={handleTotalClick}
+            placeholder="0"
             onChange={(e) => setAudcoAmount(Number(e.target.value))}
             InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
@@ -85,13 +62,10 @@ const Trading = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
           <TextField
             fullWidth
-            inputRef={bnbRef}
             variant="outlined"
-            type="number"
+            placeholder="0"
             label="Number"
-            value={bnbAmount}
-            onClick={handleBnbClick}
-            onChange={(e) => setBnbAmount(Number(e.target.value))}
+            onChange={e => setBnbAmount(Number(e.target.value))}
             InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
         </Box>
@@ -119,7 +93,7 @@ const Trading = () => {
                 display: 'flex', direction: 'column', alignItems: 'center', borderRadius: 0
               },
             }}
-            onChange={handleChange}
+            onChange={(event) => setType(event.target.value)}
           >
             <MenuItem value='0' sx={{ display: 'flex', direction: 'column', alignItems: 'center' }}>
               <img

@@ -9,15 +9,17 @@ import { useContext } from 'react';
 import DataContext from '../../Context/dataContext';
 import DialogContext from '../../Context/dialogContext';
 import SnackbarContext from '../../Context/snackbarContext';
+import LangContext from '../../Context/langContext';
 
 export default function AlertDialog() {
   const { open, setOpen } = useContext(DialogContext);
   const { audco_usdt, setAudco_usdt } = useContext(DataContext);
   const { setLock } = useContext(DataContext);
   const { setMessage, setSnackOpen } = useContext(SnackbarContext);
+  const { content } = useContext(LangContext);
 
   const handleClose = () => {
-    setMessage("AUDCO 汇率锁定");
+    setMessage(content.lock);
     setSnackOpen(true);
     setOpen(false);
   };

@@ -4,7 +4,7 @@ import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 
 const CustomerAppBar = () => {
   return (
-    <AppBar sx={{ backgroundColor: 'white', height: '12%', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: 1 }}>
+    <AppBar sx={{ backgroundColor: 'white', height: '11%', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: 1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }}>
           <Box>
