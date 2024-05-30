@@ -62,25 +62,13 @@ const App = () => {
   const [snackOpen, setSnackOpen] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(0);
-
   const lockRef = useRef(lock);
-
-  useEffect(() => {
-    lockRef.current = lock;
-  }, [lock]);
 
   useEffect(() => {
     import (`./Content/${lang}.json`)
       .then(data => setContent(data.default))
       .catch(_error => setLang('zh'));
   }, [lang]);
-
-  useEffect(() => {
-    update()
-    const intervalId = setInterval(() => update(), 30000);
-    return () => clearInterval(intervalId);
-  // eslint-disable-next-line
-  }, []);
 
   const update = () => {
     Promise.all([updateAudco_usdt(), updateBnb(), updateUsdt()])
@@ -91,11 +79,11 @@ const App = () => {
         if ((!lockRef.current && !audco_usdt.data.last) || !bnb_usdt.data.last || !usdt_aud.data.average_price) {
           throw new Error('API Fetch Fail');
         }
-        setMessage(content.update);
+        setMessage(content.update || 'Rates updated');
         setSnackOpen(true);
       })
       .catch(() => {
-        setMessage(content.updateError);
+        setMessage(content.updateError || 'Fetching rates failed');
         setSnackOpen(true);
         if (!send.current) {
           send.current = true;
@@ -103,6 +91,25 @@ const App = () => {
         }
       });
   }
+
+  const updateRef = useRef<() => void>();
+
+  updateRef.current = update;
+
+  useEffect(() => {
+    lockRef.current = lock;
+  }, [lock]);
+
+  useEffect(() => {
+    update();
+    const intervalId = setInterval(() => {
+      if (updateRef.current) {
+        updateRef.current();
+      }
+    }, 30000);
+    return () => clearInterval(intervalId);
+  // eslint-disable-next-line
+  }, []);
 
   return (
     <SnackbarContext.Provider value={{ message, setMessage, snackOpen, setSnackOpen }}>

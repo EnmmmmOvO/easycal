@@ -26,6 +26,18 @@ const Update = () => {
 
   };
 
+  const handleLangClick = () => {
+    if (lang === 'zh') {
+      setLang('en');
+      setMessage('Switch English');
+      setSnackOpen(true);
+    } else {
+      setLang('zh');
+      setMessage('切换成中文');
+      setSnackOpen(true);
+    }
+  }
+
   const handleLockClick = () => {
     if (lock) {
       setLock(false);
@@ -75,7 +87,7 @@ const Update = () => {
           key="lang"
           icon={<Language />}
           tooltipTitle="Switch Language"
-          onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
+          onClick={handleLangClick}
           />
       </SpeedDial>
     </Box>
