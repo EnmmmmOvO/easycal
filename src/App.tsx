@@ -79,11 +79,11 @@ const App = () => {
         if ((!lockRef.current && !audco_usdt.data.last) || !bnb_usdt.data.last || !usdt_aud.data.average_price) {
           throw new Error('API Fetch Fail');
         }
-        setMessage(content.update || 'Rates updated');
+        setMessage(content.update || '汇率已更新');
         setSnackOpen(true);
       })
       .catch(() => {
-        setMessage(content.updateError || 'Fetching rates failed');
+        setMessage(content.updateError || '汇率更新失败');
         setSnackOpen(true);
         if (!send.current) {
           send.current = true;
