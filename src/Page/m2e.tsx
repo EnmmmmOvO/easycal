@@ -134,7 +134,7 @@ const M2E = () => {
       </Grid>
 
       <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-        $ {(total / audco_usdt / usdt_aud).toFixed(2)}
+        $ {(total * audco_usdt * usdt_aud / 3).toFixed(2)}
       </Grid>
 
       <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -142,7 +142,7 @@ const M2E = () => {
       </Grid>
 
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 2, fontSize: 16, fontWeight: 600 }}>
-        {content.total}: $ {(value * 0.7 * audco_usdt * usdt_aud - total / audco_usdt / usdt_aud).toFixed(2)}
+        {content.total}: $ {(value * 0.7 * audco_usdt * usdt_aud - (total / 3 * audco_usdt * usdt_aud)).toFixed(2)}
       </Grid>
     </Grid>
   )
