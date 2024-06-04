@@ -121,7 +121,7 @@ const M2E = () => {
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-        $ {(total * audco_usdt * usdt_aud / 3).toFixed(2)}
+        $ {(value * 0.7 * audco_usdt).toFixed(2)}
       </Grid>
 
       <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
