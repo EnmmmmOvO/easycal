@@ -92,7 +92,6 @@ const Trading = () => {
             label="Number"
             placeholder="0"
             onChange={(e) => setBnbAmount(Number(e.target.value))}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
         </Box>
       </Grid>
@@ -116,7 +115,7 @@ const Trading = () => {
 
       <Grid item xs={12}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
-          $ {audcoAmount.toFixed(2)}
+          {audcoAmount.toFixed(2)}
         </Box>
       </Grid>
     </Grid>

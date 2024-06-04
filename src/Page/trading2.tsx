@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   FormControl,
-  Grid, InputAdornment,
+  Grid,
   InputLabel,
   MenuItem,
   Select, TextField
@@ -53,7 +53,6 @@ const Trading = () => {
             label="Number"
             placeholder="0"
             onChange={(e) => setAudcoAmount(Number(e.target.value))}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
         </Box>
       </Grid>
@@ -66,7 +65,6 @@ const Trading = () => {
             placeholder="0"
             label="Number"
             onChange={e => setBnbAmount(Number(e.target.value))}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
             />
         </Box>
       </Grid>
