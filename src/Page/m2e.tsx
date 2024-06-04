@@ -93,12 +93,12 @@ const M2E = () => {
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
-        <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 16, marginRight: 10 }}/>
+        <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         AUDCO {content.pool}
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
-        <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 16, marginRight: 10 }}/>
+        <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         AUDCO {content.destroy}
       </Grid>
 
@@ -111,17 +111,17 @@ const M2E = () => {
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
-        <img src={`${process.env.PUBLIC_URL}/static/usd.svg`} alt="logo" style={{ height: 16, marginRight: 10 }}/>
+        <img src={`${process.env.PUBLIC_URL}/static/usdt.svg`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         {content.invest}
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
-        <img src={`${process.env.PUBLIC_URL}/static/aud.svg`} alt="logo" style={{ height: 16, marginRight: 10 }}/>
+        <img src={`${process.env.PUBLIC_URL}/static/aud.svg`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         {content.m2e}
       </Grid>
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-        $ {(value * 0.7 * audco_usdt).toFixed(2)}
+        {(value * 0.7 * audco_usdt).toFixed(2)}
       </Grid>
 
       <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
