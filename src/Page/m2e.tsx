@@ -1,7 +1,9 @@
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import DataContext from '../Context/dataContext';
 import LangContext from '../Context/langContext';
+import PageContext from '../Context/pageContext';
+import { Close } from '@mui/icons-material';
 
 const M2E = () => {
   const [data, setData] = useState(0);
@@ -9,7 +11,11 @@ const M2E = () => {
   const [switchData, setSwitchDate] = useState('0')
   const [value, setValue] = useState(0);
 
+  const input = useRef<HTMLInputElement>(null);
+  const pool = useRef<HTMLInputElement>(null);
+
   const { content } = useContext(LangContext);
+  const { temp, setTemp } = useContext(PageContext);
 
   const { audco_usdt, usdt_aud } = useContext(DataContext);
 
@@ -29,26 +35,76 @@ const M2E = () => {
     }
   }, [audco_usdt, usdt_aud, total, data, switchData]);
 
+  useEffect(() => {
+    if (temp !== -1) {
+      if (pool.current) {
+        pool.current.value = (temp * 3).toFixed(2);
+      }
+      if (input.current) {
+        input.current.value = temp.toFixed(2);
+      }
+      setTotal(temp * 3);
+      setTemp(-1);
+    }
+
+  // eslint-disable-next-line
+  }, [temp]);
+
   return (
     <Grid container spacing={2} sx={{ height: 100, mt: '3px', fontSize: 14 }}>
-      <Grid item xs={4}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <img
-            style={{height: 30}}
-            src={`${process.env.PUBLIC_URL}/static/audco.png`}
-            alt={'AUDCO'}
-          />
-        </Box>
-         <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>AUDCO</Box>
+      <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content.mintTotal}
       </Grid>
 
       <Grid item xs={8}>
         <TextField
           fullWidth
+          inputRef={input}
           variant="outlined"
-          label="M2E Blance"
-          placeholder="0"
-          onChange={(e) => setTotal(Number(e.target.value))}
+          placeholder="0.00"
+          InputProps={{ endAdornment: <Close sx={{ fontSize: '14px' }} onClick={() => {
+              if (input.current) {
+                input.current.value = '';
+              }
+              if (pool.current) {
+                pool.current.value = '';
+              }
+              setTotal(0);
+          }} />}}
+          onChange={(e) => {
+            setTotal(Number(e.target.value) * 3);
+            if (pool.current) {
+              pool.current.value = (Number(e.target.value) * 3).toFixed(2);
+            }
+          }}
+          />
+      </Grid>
+
+      <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content.m2eBalance}
+      </Grid>
+
+      <Grid item xs={8}>
+        <TextField
+          fullWidth
+          inputRef={pool}
+          variant="outlined"
+          placeholder="0.00"
+          InputProps={{ endAdornment: <Close sx={{ fontSize: '14px' }} onClick={() => {
+              if (input.current) {
+                input.current.value = '';
+              }
+              if (pool.current) {
+                pool.current.value = '';
+              }
+              setTotal(0);
+          }} />}}
+          onChange={(e) => {
+            setTotal(Number(e.target.value));
+            if (input.current) {
+              input.current.value = (Number(e.target.value) / 3).toFixed(2);
+            }
+          }}
           />
       </Grid>
 

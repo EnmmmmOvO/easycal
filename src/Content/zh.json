@@ -9,5 +9,8 @@
   "m2e": "澳币 收益",
   "month": "月",
   "day": "天",
-  "year": "年"
+  "year": "年",
+  "mintTotal": "铸造总量",
+  "m2eBalance": "M2E 余额",
+  "calculate": "计算收益"
 }

@@ -9,5 +9,8 @@
   "m2e": "AUD Earning",
   "month": "Month",
   "day": "Day",
-  "year": "Year"
+  "year": "Year",
+  "mintTotal": "Mint Total",
+  "m2eBalance": "M2E Balance",
+  "calculate": "Calculate Earning"
 }

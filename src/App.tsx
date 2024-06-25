@@ -70,6 +70,8 @@ const App = () => {
   const [bnb_usdt, setBnb_usdt] = useState<number>(0);
   const [audco_aud, setAudco_aud] = useState<number>(0);
 
+  const [temp, setTemp] = useState<number>(-1);
+
   const [message, setMessage] = useState<string>('');
   const [snackOpen, setSnackOpen] = useState<boolean>(false);
 
@@ -129,7 +131,7 @@ const App = () => {
     <SnackbarContext.Provider value={{ message, setMessage, snackOpen, setSnackOpen }}>
       <DialogContext.Provider value={{ open, setOpen }}>
         <LangContext.Provider value={{ lang, setLang, content }}>
-          <PageContext.Provider value={{ page, setPage }}>
+          <PageContext.Provider value={{ page, setPage, temp, setTemp }}>
             <DataContext.Provider value={{ audco_usdt, lock, send, usdt_aud, bnb_usdt, setLock, setAudco_usdt, update, audco_aud }}>
               <CustomerAppBar />
               <Background />
