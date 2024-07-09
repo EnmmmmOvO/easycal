@@ -89,7 +89,7 @@ const App = () => {
       .then(([audco_usdt, bnb_usdt, usdt_aud, audco_aud]) => {
         if (!lockRef.current) setAudco_usdt(Number(audco_usdt.data.last));
         setBnb_usdt(Number(bnb_usdt.data.last));
-        setUsdt_aud(Number(usdt_aud.data.average_price));
+        setUsdt_aud(Number(usdt_aud.data.market_price));
         console.log(audco_aud);
         setAudco_aud(Number(audco_aud.data.data[0].price));
         if ((!lockRef.current && !audco_usdt.data.last) || !bnb_usdt.data.last || !usdt_aud.data.average_price) {
