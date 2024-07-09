@@ -12,5 +12,6 @@
   "year": "Year",
   "mintTotal": "Mint Total",
   "m2eBalance": "M2E Balance",
-  "calculate": "Calculate Earning"
+  "calculate": "Calculate Earning",
+  "lockError": "Lock failed, please input a positive integer rate"
 }

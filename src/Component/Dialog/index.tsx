@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import DataContext from '../../Context/dataContext';
 import DialogContext from '../../Context/dialogContext';
 import SnackbarContext from '../../Context/snackbarContext';
@@ -17,11 +17,24 @@ export default function AlertDialog() {
   const { setLock } = useContext(DataContext);
   const { setMessage, setSnackOpen } = useContext(SnackbarContext);
   const { content } = useContext(LangContext);
+  const ref = useRef<HTMLInputElement>(null);
 
   const handleClose = () => {
-    setMessage(content.lock);
-    setSnackOpen(true);
-    setOpen(false);
+
+    if (ref.current) {
+      const value = parseFloat(ref.current.value);
+      if (!isNaN(value) && value > 0) {
+        setAudco_usdt(value);
+        setMessage(content.lock);
+        setSnackOpen(true);
+        setOpen(false);
+      } else {
+        setMessage(content.lockError);
+        setSnackOpen(true);
+      }
+    }
+
+
   };
 
   const handleCancel = () => {
@@ -32,7 +45,7 @@ export default function AlertDialog() {
   return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleCancel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -43,11 +56,10 @@ export default function AlertDialog() {
         <DialogContent>
           <TextField
             autoFocus
+            inputRef={ref}
             margin="dense"
             label="AUDOC Rate"
-            type="number"
-            value={audco_usdt}
-            onChange={(e) => setAudco_usdt(Number(e.target.value))}
+            placeholder={audco_usdt.toString()}
             fullWidth
             />
         </DialogContent>

@@ -12,5 +12,6 @@
   "year": "年",
   "mintTotal": "铸造总量",
   "m2eBalance": "M2E 余额",
-  "calculate": "计算收益"
+  "calculate": "计算收益",
+  "lockError": "锁定失败，请输入正整数的汇率"
 }
