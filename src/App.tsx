@@ -37,7 +37,7 @@ const updateBnb = async () => {
 }
 
 const updateAudcoAud = async () => {
-  return fetch('https://api.daexglobal.com/pc/counter/search?type=OnlineBuy&coin=AUDCO&currency_code=AUD')
+  return fetch('https://api.daexglobal.com/pc/counter/search?type=OnlineBuy&coin=AUDCO&currency_code=AUD&amount=&page=1&ua=h5&language=en')
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -48,7 +48,7 @@ const updateAudcoAud = async () => {
 }
 
 const updateUsdt = async () => {
-  return fetch('https://api.daexglobal.com/pc/counter/optimal?type=OnlineSell&coin=USDT&currency_code=AUD')
+  return fetch('https://api.daexglobal.com/pc/counter/search?type=OnlineSell&coin=USDT&currency_code=AUD&amount=&page=1&ua=h5&language=en')
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -89,10 +89,12 @@ const App = () => {
       .then(([audco_usdt, bnb_usdt, usdt_aud, audco_aud]) => {
         if (!lockRef.current) setAudco_usdt(Number(audco_usdt.data.last));
         setBnb_usdt(Number(bnb_usdt.data.last));
-        setUsdt_aud(Number(usdt_aud.data.market_price));
-        console.log(audco_aud);
-        setAudco_aud(Number(audco_aud.data.data[0].price));
-        if ((!lockRef.current && !audco_usdt.data.last) || !bnb_usdt.data.last || !usdt_aud.data.average_price) {
+        setUsdt_aud(Number(usdt_aud.data[0].price));
+        setAudco_aud(Number(audco_aud.data[0].price));
+        if ((!lockRef.current && !audco_usdt.data.last) ||
+          !bnb_usdt.data.last ||
+          !usdt_aud.data[0].price ||
+          !audco_aud.data[0].price) {
           throw new Error('API Fetch Fail');
         }
         setMessage(content.update || '汇率已更新');
