@@ -123,7 +123,7 @@ const M2E = () => {
               fontSize: 14,
             },
             '& .MuiInputLabel-shrink': {
-              transform: 'translate(14px, -6px) scale(0.75)',
+              transform: 'translate(14px, -9px) scale(0.75)',
               fontSize: 16
             },
         }}
