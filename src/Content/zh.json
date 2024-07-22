@@ -5,6 +5,7 @@
   "unlock": "AUDCO 汇率已解锁",
   "pool": "释放",
   "destroy": "收取",
+  "balance": "M2E 矿池剩余",
   "invest": "USDT 收益",
   "m2e": "澳币 收益",
   "month": "月",
@@ -13,5 +14,7 @@
   "mintTotal": "铸造总量",
   "m2eBalance": "M2E 余额",
   "calculate": "计算收益",
-  "lockError": "锁定失败，请输入正整数的汇率"
+  "lockError": "锁定失败，请输入正整数的汇率",
+  "merchant": "提币转账计算器",
+  "ps": "仅供参考，具体计算按照 GDB 转账和 DAEX 提现为准"
 }

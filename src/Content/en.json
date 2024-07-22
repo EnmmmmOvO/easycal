@@ -5,6 +5,7 @@
   "unlock": "AUDCO Rates are unlocked",
   "pool": "Release",
   "destroy": "Claim",
+  "balance": "M2E Balance",
   "invest": "USDT Earning",
   "m2e": "AUD Earning",
   "month": "Month",
@@ -13,5 +14,7 @@
   "mintTotal": "Mint Total",
   "m2eBalance": "M2E Balance",
   "calculate": "Calculate Earning",
-  "lockError": "Lock failed, please input a positive integer rate"
+  "lockError": "Lock failed, please input a positive integer rate",
+  "merchant": "Transfer, Withdraw Calculation",
+  "ps": "For reference only, the values are standardized according to GDB transfers and DAEX withdrawals."
 }

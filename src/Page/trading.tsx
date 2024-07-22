@@ -13,7 +13,7 @@ import PageContext from '../Context/pageContext';
 import LangContext from '../Context/langContext';
 
 const Trading = () => {
-  const {audco_usdt, usdt_aud, bnb_usdt} = useContext(DataContext);
+  const { audco_usdt, usdt_aud, bnb_usdt, audco_aud_buy, lock } = useContext(DataContext);
 
   const { setPage, setTemp } = useContext(PageContext);
 
@@ -25,8 +25,16 @@ const Trading = () => {
   const { content } = useContext(LangContext);
 
   useEffect(() => {
-    setAudcoAmount(((type === '0' ? total / usdt_aud : total) - (bnb_usdt * bnbAmount)) / audco_usdt);
-  }, [total, bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type]);
+    if (type === '0') {
+      if (lock) {
+        setAudcoAmount((total / usdt_aud - bnbAmount * bnb_usdt) / audco_usdt);
+      } else {
+        setAudcoAmount((total - bnb_usdt * bnbAmount * usdt_aud) / audco_aud_buy);
+      }
+    } else {
+      setAudcoAmount((total - bnb_usdt * bnbAmount) / audco_usdt);
+    }
+  }, [total, bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type, audco_aud_buy, lock]);
 
   return (
     <Grid container spacing={2} sx={{ height: 100, mt: 0 }}>

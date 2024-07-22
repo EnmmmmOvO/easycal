@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import DataContext from '../Context/dataContext';
 import LangContext from '../Context/langContext';
@@ -51,7 +51,7 @@ const M2E = () => {
   }, [temp]);
 
   return (
-    <Grid container spacing={2} sx={{ height: 100, mt: '3px', fontSize: 14 }}>
+    <Grid container spacing={2} sx={{ height: 100, mt: '1px', fontSize: 14 }}>
       <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {content.mintTotal}
       </Grid>
@@ -60,6 +60,7 @@ const M2E = () => {
         <TextField
           fullWidth
           inputRef={input}
+          sx={{ '& .MuiInputBase-root': { padding: '5px' }, '& .MuiOutlinedInput-input': { padding: '5px' } }}
           variant="outlined"
           placeholder="0.00"
           InputProps={{ endAdornment: <Close sx={{ fontSize: '14px' }} onClick={() => {
@@ -88,6 +89,7 @@ const M2E = () => {
         <TextField
           fullWidth
           inputRef={pool}
+          sx={{ '& .MuiInputBase-root': { padding: '5px' }, '& .MuiOutlinedInput-input': { padding: '5px' } }}
           variant="outlined"
           placeholder="0.00"
           InputProps={{ endAdornment: <Close sx={{ fontSize: '14px' }} onClick={() => {
@@ -113,6 +115,18 @@ const M2E = () => {
           fullWidth
           variant="outlined"
           placeholder="0"
+          sx={{
+            '& .MuiInputBase-root': { padding: '5px' },
+            '& .MuiOutlinedInput-input': { padding: '5px' },
+            '& .MuiInputLabel-root': {
+              transform: 'translate(10px, 10px) scale(1)',
+              fontSize: 14,
+            },
+            '& .MuiInputLabel-shrink': {
+              transform: 'translate(14px, -6px) scale(0.75)',
+              fontSize: 16
+            },
+        }}
           label="Date"
           onChange={(e) => setData(Number(e.target.value))}
           />
@@ -124,16 +138,20 @@ const M2E = () => {
           <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            multiline
             value={switchData}
             fullWidth
             label="Unit"
             sx={{
               '& .MuiSelect-select': {
-                display: 'flex', direction: 'column', alignItems: 'center', borderRadius: 0
+                padding: '10px',
+                fontSize: 14,
+              },
+              '& .MuiOutlinedInput-root': {
+                padding: '11px',
               },
             }}
             onChange={(e) => setSwitchDate(e.target.value)}
+           variant={'outlined'}
           >
             <MenuItem value='0' sx={{ display: 'flex', direction: 'column', alignItems: 'center' }}>
               {content.day}
@@ -155,32 +173,31 @@ const M2E = () => {
 
       <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
         <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
+        {content.balance}
+      </Grid>
+
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>{(Math.pow(0.999, data) * total).toFixed(2)}</Grid>
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>{(value * 0.7).toFixed(2)}</Grid>
+
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>
+        <img src={`${process.env.PUBLIC_URL}/static/audco.png`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         AUDCO {content.destroy}
       </Grid>
 
-      <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-        {value.toFixed(2)}
-      </Grid>
-
-      <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-        {(value * 0.7).toFixed(2)}
-      </Grid>
-
-      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>
         <img src={`${process.env.PUBLIC_URL}/static/usdt.svg`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         {content.invest}
       </Grid>
 
-      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center', mt: 1 }}>
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>{value.toFixed(2)}</Grid>
+      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center' }}>{(value * 0.7 * audco_usdt).toFixed(2)}</Grid>
+
+      <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center' }}>
         <img src={`${process.env.PUBLIC_URL}/static/aud.svg`} alt="logo" style={{ height: 18, marginRight: 10 }}/>
         {content.m2e}
       </Grid>
 
-      <Grid item xs={6} sx={{display: 'flex', justifyContent: 'center'}}>
-        {(value * 0.7 * audco_usdt).toFixed(2)}
-      </Grid>
-
-      <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center' }}>
         $ {(value * 0.7 * audco_usdt * usdt_aud).toFixed(2)}
       </Grid>
     </Grid>

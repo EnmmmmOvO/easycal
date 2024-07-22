@@ -10,7 +10,7 @@ import {
 import DataContext from '../Context/dataContext';
 
 const Trading = () => {
-  const {audco_usdt, usdt_aud, bnb_usdt} = useContext(DataContext);
+  const {audco_usdt, usdt_aud, bnb_usdt, audco_aud_buy, lock} = useContext(DataContext);
 
   const [type, setType] = useState('0');
   const [total, setTotal] = useState(0);
@@ -18,8 +18,16 @@ const Trading = () => {
   const [audcoAmount, setAudcoAmount] = useState(0);
 
   useEffect(() => {
-    setTotal((audcoAmount * audco_usdt + bnbAmount * bnb_usdt) * (type === '0' ? usdt_aud : 1));
-  }, [bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type, audcoAmount]);
+    if (type === '0') {
+      if (lock) {
+        setTotal((audco_usdt * audcoAmount + bnbAmount * bnb_usdt) * usdt_aud );
+      } else {
+        setTotal(audco_aud_buy * audcoAmount + bnbAmount * bnb_usdt * usdt_aud);
+      }
+    } else {
+      setTotal(audco_usdt * audcoAmount + bnbAmount * bnb_usdt);
+    }
+  }, [bnbAmount, audco_usdt, usdt_aud, bnb_usdt, type, audcoAmount, audco_aud_buy, lock]);
 
   return (
     <Grid container spacing={2} sx={{ height: 100, mt: 0 }}>

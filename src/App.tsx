@@ -10,7 +10,6 @@ import LangContext from './Context/langContext';
 const CustomerAppBar = Loader(lazy(() => import('./Component/AppBar')));
 const Update = Loader(lazy(() => import('./Component/Tool')));
 const Background = Loader(lazy(() => import('./Component/Background')));
-const CopyRight = Loader(lazy(() => import('./Component/Copyright')));
 const Dialog = Loader(lazy(() => import('./Component/Dialog')));
 const SnackBar = Loader(lazy(() => import('./Component/SnackBar')));
 
@@ -36,7 +35,7 @@ const updateBnb = async () => {
     });
 }
 
-const updateAudcoAud = async () => {
+const updateAudcoAudSell = async () => {
   return fetch('https://api.daexglobal.com/pc/counter/search?type=OnlineBuy&coin=AUDCO&currency_code=AUD&amount=&page=1&ua=h5&language=en')
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
@@ -58,6 +57,17 @@ const updateUsdt = async () => {
     });
 }
 
+const updateAudcoAudBuy = async () => {
+  return fetch('https://api.daexglobal.com/pc/counter/search?type=OnlineSell&coin=AUDCO&currency_code=AUD&amount=&page=1&ua=h5&language=en')
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .catch(error => {
+      throw error;
+    });
+}
+
 const App = () => {
   const [lang, setLang] = useState<string>('zh');
   const [content, setContent] = useState<{ [key: string]: string }>({});
@@ -69,6 +79,7 @@ const App = () => {
   const [usdt_aud, setUsdt_aud] = useState<number>(0);
   const [bnb_usdt, setBnb_usdt] = useState<number>(0);
   const [audco_aud, setAudco_aud] = useState<number>(0);
+  const [audco_aud_buy, setAudco_aud_buy] = useState<number>(0);
 
   const [temp, setTemp] = useState<number>(-1);
 
@@ -85,15 +96,17 @@ const App = () => {
   }, [lang]);
 
   const update = () => {
-    Promise.all([updateAudco_usdt(), updateBnb(), updateUsdt(), updateAudcoAud()])
-      .then(([audco_usdt, bnb_usdt, usdt_aud, audco_aud]) => {
+    Promise.all([updateAudco_usdt(), updateBnb(), updateUsdt(), updateAudcoAudSell(), updateAudcoAudBuy()])
+      .then(([audco_usdt, bnb_usdt, usdt_aud, audco_aud, audco_aud_buy]) => {
         if (!lockRef.current) setAudco_usdt(Number(audco_usdt.data.last));
         setBnb_usdt(Number(bnb_usdt.data.last));
         setUsdt_aud(Number(usdt_aud.data[0].price));
         setAudco_aud(Number(audco_aud.data[0].price));
+        setAudco_aud_buy(Number(audco_aud_buy.data[0].price));
         if ((!lockRef.current && !audco_usdt.data.last) ||
           !bnb_usdt.data.last ||
           !usdt_aud.data[0].price ||
+          !audco_aud_buy.data[0].price ||
           !audco_aud.data[0].price) {
           throw new Error('API Fetch Fail');
         }
@@ -134,12 +147,11 @@ const App = () => {
       <DialogContext.Provider value={{ open, setOpen }}>
         <LangContext.Provider value={{ lang, setLang, content }}>
           <PageContext.Provider value={{ page, setPage, temp, setTemp }}>
-            <DataContext.Provider value={{ audco_usdt, lock, send, usdt_aud, bnb_usdt, setLock, setAudco_usdt, update, audco_aud }}>
+            <DataContext.Provider value={{ audco_usdt, lock, send, usdt_aud, bnb_usdt, setLock, setAudco_usdt, update, audco_aud, audco_aud_buy }}>
               <CustomerAppBar />
               <Background />
               <Router />
               <Update />
-              <CopyRight />
               <Dialog />
               <SnackBar />
             </DataContext.Provider>

@@ -7,6 +7,7 @@ interface DataProps {
   usdt_aud: number;
   bnb_usdt: number;
   audco_aud: number;
+  audco_aud_buy: number;
   setAudco_usdt: (a: number) => void;
   setLock: (a: boolean) => void;
   update: () => void;
@@ -19,6 +20,7 @@ const DataContext = createContext<DataProps>({
   usdt_aud: 0,
   bnb_usdt: 0,
   audco_aud: 0,
+  audco_aud_buy: 0,
   setAudco_usdt: () => {
     if (process.env.NODE_ENV === 'development') {
       console.warn('DialogContext is not defined');
